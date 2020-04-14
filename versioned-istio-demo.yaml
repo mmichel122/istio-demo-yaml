@@ -166,14 +166,14 @@ kind: Service
 metadata:
     name: demo
     labels:
-    app: demo
+      app: demo
 spec:
     ports:
     - name: http
-    port: 80
-    targetPort: 8081
+      port: 80
+      targetPort: 8081
     selector:
-    app: demo
+      app: demo
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -181,7 +181,7 @@ metadata:
     name: demo-gateway
 spec:
     selector:
-    istio: ingressgateway
+      istio: ingressgateway
     servers:
     - port:
         number: 80
