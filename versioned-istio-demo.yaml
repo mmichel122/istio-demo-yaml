@@ -71,95 +71,95 @@ data:
         #}
     }
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-    name: demo-v1
-    labels:
-    app: demo
-    version: v1
-spec:
-    replicas: 1
-    selector:
-    matchLabels:
-        app: demo
-        version: v1
-    template:
+    apiVersion: apps/v1
+    kind: Deployment
     metadata:
-        labels:
+      name: demo-v1
+      labels:
         app: demo
         version: v1
     spec:
-        containers:
-        - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 8081
-        volumeMounts:
-        - mountPath: /usr/share/nginx/html
-            name: index-html   
-        - mountPath: /etc/nginx/conf.d
-            readOnly: true
-            name: nginx-conf
-        - mountPath: /var/log/nginx
-            name: log
-        volumes:
-        - name: nginx-conf
-        configMap:
-            name: nginx-conf 
-            items:
-            - key: default.conf
-                path: default.conf
-        - name: index-html
-        configMap:
-            name: demo-v1
-        - name: log
-        emptyDir: {}
+      replicas: 1
+      selector:
+        matchLabels:
+          app: demo
+          version: v1
+      template:
+        metadata:
+          labels:
+            app: demo
+            version: v1
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+            ports:
+            - containerPort: 8081
+            volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: index-html   
+            - mountPath: /etc/nginx/conf.d
+              readOnly: true
+              name: nginx-conf
+            - mountPath: /var/log/nginx
+              name: log
+          volumes:
+          - name: nginx-conf
+            configMap:
+              name: nginx-conf 
+              items:
+                - key: default.conf
+                  path: default.conf
+          - name: index-html
+            configMap:
+              name: demo-v1
+          - name: log
+            emptyDir: {}
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-    name: demo-v2
-    labels:
-    app: demo
-    version: v2
-spec:
-    replicas: 1
-    selector:
-    matchLabels:
-        app: demo
-        version: v2
-    template:
+    apiVersion: apps/v1
+    kind: Deployment
     metadata:
-        labels:
+      name: demo-v2
+      labels:
         app: demo
         version: v2
     spec:
-        containers:
-        - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 8081
-        volumeMounts:
-        - mountPath: /usr/share/nginx/html
-            name: index-html   
-        - mountPath: /etc/nginx/conf.d
-            readOnly: true
-            name: nginx-conf
-        - mountPath: /var/log/nginx
-            name: log
-        volumes:
-        - name: nginx-conf
-        configMap:
-            name: nginx-conf 
-            items:
-            - key: default.conf
-                path: default.conf
-        - name: index-html
-        configMap:
-            name: demo-v2
-        - name: log
-        emptyDir: {}
+      replicas: 1
+      selector:
+        matchLabels:
+          app: demo
+          version: v2
+      template:
+        metadata:
+          labels:
+            app: demo
+            version: v2
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+            ports:
+            - containerPort: 8081
+            volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: index-html   
+            - mountPath: /etc/nginx/conf.d
+              readOnly: true
+              name: nginx-conf
+            - mountPath: /var/log/nginx
+              name: log
+          volumes:
+          - name: nginx-conf
+            configMap:
+              name: nginx-conf 
+              items:
+                - key: default.conf
+                  path: default.conf
+          - name: index-html
+            configMap:
+              name: demo-v2
+          - name: log
+            emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -218,8 +218,8 @@ spec:
     host: demo
     subsets:
     - name: v1
-    labels:
+      labels:
         version: v1
     - name: v2
-    labels:
+      labels:
         version: v2
