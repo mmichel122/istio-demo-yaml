@@ -4,27 +4,27 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-name: demo-v1
+  name: demo-v1
 data:
-index.html: |
-<body bgcolor="green">
-    <center>
-    <h1><font color="blue">NGINX SINGLE DEMO</font></h1>
-    <h1><font color="blue">V1</font></h1>
-    </center>
-</body>
+  index.html: |
+    <body bgcolor="green">
+      <center>
+        <h1><font color="blue">NGINX DEMO</font></h1>
+        <h1><font color="blue">V1</font></h1>
+      </center>
+    </body>
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: demo-v2
+  name: demo-v2
 data:
-    index.html: |
+  index.html: |
     <body bgcolor="red">
-        <center>
+      <center>
         <h1><font color="blue">NGINX DEMO</font></h1>
         <h1><font color="blue">V2</font></h1>
-        </center>
+      </center>
     </body>
 ---
 apiVersion: v1
