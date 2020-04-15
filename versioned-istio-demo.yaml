@@ -188,7 +188,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-      - "demo"
+      - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
