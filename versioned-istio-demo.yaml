@@ -178,7 +178,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-    name: demo-gateway
+  name: demo-gateway
 spec:
     selector:
       istio: ingressgateway
@@ -201,14 +201,14 @@ spec:
     - demo-gateway
     http:
     - route:
-        - destination:
-            host: demo
-            subset: v1
-          weight: 25
-        - destination:
-            host: demo
-            subnet: v2
-          weight: 75
+      - destination:
+         host: demo
+         subset: v1
+        weight: 25
+      - destination:
+           host: demo
+           subnet: v2
+        weight: 75
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -223,3 +223,4 @@ spec:
     - name: v2
       labels:
         version: v2
+---
