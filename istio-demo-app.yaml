@@ -1,5 +1,5 @@
 #################################################
-# ConfigMap for index.html for mydata v1
+# ConfigMap for index.html for demo v1
 #################################################
 apiVersion: v1
 kind: ConfigMap
@@ -14,6 +14,9 @@ data:
       </center>
     </body>
 ---
+#################################################
+# ConfigMap for index.html for demo v2
+#################################################
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -27,6 +30,9 @@ data:
       </center>
     </body>
 ---
+#################################################
+# ConfigMap for nginx conf
+#################################################
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -174,52 +180,3 @@ spec:
       targetPort: 8081
     selector:
       app: demo
----
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: demo-gateway
-spec:
-    selector:
-      istio: ingressgateway
-    servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-      - "*"
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-    name: demo
-spec:
-  hosts:
-  - "*"
-  gateways:
-  - demo-gateway
-  http:
-    - route:
-        - destination:
-            host: demo
-            subset: v1
-          weight: 25
-        - destination:
-            host: demo
-            subset: v2
-          weight: 75
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-    name: demo-rules
-spec:
-    host: demo
-    subsets:
-    - name: v1
-      labels:
-        version: v1
-    - name: v2
-      labels:
-        version: v2
